@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { Algo } from './algo.entity';
 import { searchAlgos } from './algos/search';
 import { sortAlgos } from './algos/sort';
+import { CreateDsDto } from 'src/dto/CreateDs.dto';
 
 @Injectable({})
 export class AlgoService {
@@ -52,4 +53,5 @@ export class AlgoService {
     const targetIndex = algorithm(data, target);
     return targetIndex;
   }
+
 }

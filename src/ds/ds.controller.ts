@@ -4,10 +4,13 @@ import {
   Param,
   HttpException,
   HttpStatus,
+  Post,
+  Body,
 } from '@nestjs/common';
 import { DsService } from './ds.service';
 import { Ds } from './ds.entity';
 import { DsParamsDto } from 'src/dto/DsParams.dto';
+import { CreateDsDto } from 'src/dto/CreateDs.dto';
 
 @Controller('ds')
 export class DsController {
@@ -29,5 +32,11 @@ export class DsController {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
     return ds;
+  }
+
+  @Post('create')
+  async createDs(@Body() createDsDto: CreateDsDto): Promise<Ds> {
+    const newUser = await this.dsService.createDs(createDsDto);
+    return newUser;
   }
 }
