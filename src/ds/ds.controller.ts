@@ -1,16 +1,18 @@
 import {
   Controller,
   Get,
+  Put,
   Param,
+  Post,
   HttpException,
   HttpStatus,
-  Post,
   Body,
 } from '@nestjs/common';
 import { DsService } from './ds.service';
 import { Ds } from './ds.entity';
 import { DsParamsDto } from 'src/dto/DsParams.dto';
 import { CreateDsDto } from 'src/dto/CreateDs.dto';
+import { EditDsDto } from 'src/dto/EditDs.dto';
 
 @Controller('ds')
 export class DsController {
@@ -38,5 +40,10 @@ export class DsController {
   async createDs(@Body() createDsDto: CreateDsDto): Promise<Ds> {
     const newUser = await this.dsService.createDs(createDsDto);
     return newUser;
+  }
+
+  @Put('edit')
+  async editDs(@Body() editDsDto: EditDsDto): Promise<Ds> {
+    return await this.dsService.editDs(editDsDto);
   }
 }

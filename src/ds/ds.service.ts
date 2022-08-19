@@ -2,8 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Ds } from './ds.entity';
-import { CreateDsDto } from 'src/dto/CreateDs.dto';
 import { HttpException, HttpStatus } from '@nestjs/common';
+import { CreateDsDto } from 'src/dto/CreateDs.dto';
+import { EditDsDto } from 'src/dto/EditDs.dto';
 
 @Injectable({})
 export class DsService {
@@ -32,5 +33,19 @@ export class DsService {
     }
     const newDs = this.dsRepository.create(createDsDto);
     return await this.dsRepository.save(newDs);
+  }
+
+  // edit Dto to mandate name
+  async editDs(editDsDto: EditDsDto): Promise<Ds> {
+    const exists = await this.dsRepository.findOneBy({
+      name: editDsDto.name,
+    });
+    if (!exists) {
+      throw new HttpException("That Ds doesn't exist", HttpStatus.BAD_REQUEST);
+    }
+    await this.dsRepository.update({ name: editDsDto.name }, { ...editDsDto });
+    return await this.dsRepository.findOneBy({
+      name: editDsDto.name,
+    });
   }
 }
