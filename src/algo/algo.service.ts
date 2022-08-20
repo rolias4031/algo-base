@@ -32,7 +32,7 @@ export class AlgoService {
     } else {
       return await this.algoRepository.find({
         where: {
-          algoType: name,
+          algo_type: name,
         },
       });
     }

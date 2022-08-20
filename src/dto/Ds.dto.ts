@@ -8,7 +8,7 @@ export class CreateDsDto {
 
   @IsNotEmpty()
   @IsString()
-  displayName: string;
+  display_name: string;
 
   @IsNotEmpty()
   @IsString()

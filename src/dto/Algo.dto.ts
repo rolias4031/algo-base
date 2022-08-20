@@ -8,11 +8,11 @@ export class CreateAlgoDto {
 
   @IsNotEmpty()
   @IsString()
-  displayName: string;
+  display_name: string;
 
   @IsNotEmpty()
   @IsString()
-  algoType: string;
+  algo_type: string;
 
   @IsNotEmpty()
   @IsString()
@@ -20,19 +20,19 @@ export class CreateAlgoDto {
 
   @IsNotEmpty()
   @IsString()
-  timeCompBest: string;
+  tc_best: string;
 
   @IsNotEmpty()
   @IsString()
-  spaceCompBest: string;
+  sc_best: string;
 
   @IsNotEmpty()
   @IsString()
-  timeCompAvg: string;
+  tc_avg: string;
 
   @IsNotEmpty()
   @IsString()
-  spaceCompAvg: string;
+  sc_avg: string;
 }
 
 export class EditAlgoDto extends PartialType(

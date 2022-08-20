@@ -13,7 +13,7 @@ export class Ds {
   @Column({
     unique: true,
   })
-  displayName: string;
+  display_name: string;
 
   @Column()
   description: string;

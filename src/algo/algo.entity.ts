@@ -13,23 +13,23 @@ export class Algo {
   @Column({
     unique: true,
   })
-  displayName: string;
+  display_name: string;
 
   @Column({})
-  algoType: string;
+  algo_type: string;
 
   @Column({})
   description: string;
 
   @Column({})
-  timeCompBest: string;
+  tc_best: string;
 
   @Column()
-  spaceCompBest: string;
+  sc_best: string;
 
   @Column()
-  timeCompAvg: string;
+  tc_avg: string;
 
   @Column()
-  spaceCompAvg: string;
+  sc_avg: string;
 }
