@@ -2,6 +2,7 @@ import {
   Controller,
   Post,
   Get,
+  Put,
   Param,
   Body,
   HttpException,
@@ -12,6 +13,7 @@ import { SortBodyDto } from '../dto/SortBody.dto';
 import { GetAllAlgosDto, GetOneAlgoDto } from '../dto/GetParam.dto';
 import { AlgoService } from './algo.service';
 import { Algo } from './algo.entity';
+import { CreateAlgoDto, EditAlgoDto } from 'src/dto/Algo.dto';
 
 /* Controller for algo. Imports services from algo.services. Containts routes for getting and applying all algorithms.
  */
@@ -20,13 +22,13 @@ export class AlgoController {
   constructor(private algoService: AlgoService) {}
 
   // returns all algorithms with a specified type.
-  @Get('get-all-algos/:algoType')
+  @Get(':algoType')
   async getAllAlgos(@Param() params: GetAllAlgosDto): Promise<Algo[]> {
     return await this.algoService.findAll(params.algoType);
   }
 
   // returns algorithm by name
-  @Get('get-algo/:algoName')
+  @Get(':algoName')
   async getAlgo(@Param() params: GetOneAlgoDto): Promise<Algo> {
     const info = await this.algoService.findOne(params.algoName);
     // throw error if no algorithm by that name is found.
@@ -54,5 +56,15 @@ export class AlgoController {
   @Post('apply/sort')
   applySort(@Body() body: SortBodyDto): number[] {
     return this.algoService.applySort(body.algoName, body.data);
+  }
+
+  @Post('create')
+  async createAlgo(@Body() createAlgoDto: CreateAlgoDto): Promise<Algo> {
+    return await this.algoService.createAlgo(createAlgoDto);
+  }
+
+  @Put('edit')
+  async editAlgo(@Body() editAlgoDto: EditAlgoDto): Promise<Algo> {
+    return await this.algoService.editAlgo(editAlgoDto);
   }
 }

@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateAlgoDto, EditAlgoDto } from 'src/dto/Algo.dto';
 import { Repository } from 'typeorm';
 import { Algo } from './algo.entity';
 import { searchAlgos } from './algos/search';
 import { sortAlgos } from './algos/sort';
-import { CreateDsDto } from 'src/dto/CreateDs.dto';
 
 @Injectable({})
 export class AlgoService {
@@ -54,4 +54,31 @@ export class AlgoService {
     return targetIndex;
   }
 
+  async createAlgo(createAlgoDto: CreateAlgoDto): Promise<Algo> {
+    const duplicate = await this.algoRepository.findOneBy({
+      name: createAlgoDto.name,
+    });
+    if (duplicate) {
+      throw new HttpException(
+        'That Algo already exists',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
+    const newAlgo = this.algoRepository.create(createAlgoDto);
+    return await this.algoRepository.save(newAlgo);
+  }
+
+  async editAlgo(editAlgoDto: EditAlgoDto): Promise<Algo> {
+    const exists = await this.algoRepository.findOneBy({
+      name: editAlgoDto.name,
+    });
+    if (!exists) {
+      throw new HttpException("That Algo doesn't exist", HttpStatus.NOT_FOUND);
+    }
+    await this.algoRepository.update(
+      { name: editAlgoDto.name },
+      { ...editAlgoDto },
+    );
+    return await this.algoRepository.findOneBy({ name: editAlgoDto.name });
+  }
 }

@@ -11,8 +11,7 @@ import {
 import { DsService } from './ds.service';
 import { Ds } from './ds.entity';
 import { DsParamsDto } from 'src/dto/DsParams.dto';
-import { CreateDsDto } from 'src/dto/CreateDs.dto';
-import { EditDsDto } from 'src/dto/EditDs.dto';
+import { CreateDsDto, EditDsDto } from 'src/dto/Ds.dto';
 
 @Controller('ds')
 export class DsController {

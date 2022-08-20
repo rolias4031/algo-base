@@ -3,8 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Ds } from './ds.entity';
 import { HttpException, HttpStatus } from '@nestjs/common';
-import { CreateDsDto } from 'src/dto/CreateDs.dto';
-import { EditDsDto } from 'src/dto/EditDs.dto';
+import { CreateDsDto, EditDsDto } from 'src/dto/Ds.dto';
 
 @Injectable({})
 export class DsService {

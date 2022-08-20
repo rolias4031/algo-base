@@ -1,4 +1,5 @@
 import { IsNotEmpty, IsString } from 'class-validator';
+import { PartialType, OmitType } from '@nestjs/mapped-types';
 
 export class CreateDsDto {
   @IsNotEmpty()
@@ -36,4 +37,12 @@ export class CreateDsDto {
   @IsNotEmpty()
   @IsString()
   search_tc: string;
+}
+
+export class EditDsDto extends PartialType(
+  OmitType(CreateDsDto, ['name'] as const),
+) {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
 }

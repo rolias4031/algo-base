@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString, IsIn, IsAlpha } from 'class-validator';
+import { IsNotEmpty, IsString, IsIn } from 'class-validator';
 
 const allowedTypes: string[] = ['all', 'search', 'sort'];
 
