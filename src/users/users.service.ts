@@ -41,13 +41,14 @@ export class UsersService {
     // hash password and replace with plain text pw
     const hashedPW = await bcrypt.hash(createUserDto.password, 10);
     createUserDto.password = hashedPW;
-    // create api_key and add to Dto
-    createUserDto.api_key = randomUUID();
+    // create raw_api_key, hash it, add to Dto
+    const raw_api_key = randomUUID();
+    createUserDto.api_key = await bcrypt.hash(raw_api_key, 10);
     // remove the confirmPassword property
     const { confirm_password, ...finalUserDto } = createUserDto;
     const newUser = this.userRepository.create(finalUserDto);
-    const { api_key } = await this.userRepository.save(newUser);
-    return api_key;
+    await this.userRepository.save(newUser);
+    return raw_api_key;
   }
 
   async deleteUser(deleteUserDto: DeleteUserDto): Promise<string> {

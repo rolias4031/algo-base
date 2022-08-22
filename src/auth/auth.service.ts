@@ -1,17 +1,28 @@
 import { Injectable } from '@nestjs/common';
-import { UsersService } from 'src/users/users.service';
+import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/users/user.entity';
+import { Repository } from 'typeorm';
+import { HttpException, HttpStatus } from '@nestjs/common';
+import * as bcrypt from 'bcrypt';
 
-@Injectable({})
+@Injectable()
 export class AuthService {
-  constructor(private usersService: UsersService) {}
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
 
-  async validateUser(email: string, api_key: string): Promise<any> {
+  async authorizeUser(email: string, api_key: string): Promise<boolean> {
     console.log(email, api_key);
-    const user = await this.usersService.findOne(email);
-    // include bcrypt compare and hash for this not plain text
-    if (user && user.api_key === api_key) {
-      return user;
+    // find user and check if exists
+    const user = await this.userRepository.findOneBy({ email: email });
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
-    return null;
+    console.log(user);
+    // user exists, check api_key against user.api_key
+    const isMatch = await bcrypt.compare(api_key, user.api_key);
+    if (!isMatch) return false;
+    return true;
   }
 }

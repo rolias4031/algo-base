@@ -10,6 +10,7 @@ import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
+import { AdminModule } from './admin/admin.module';
 
 @Module({
   imports: [
@@ -28,6 +29,7 @@ import { User } from './users/user.entity';
       entities: [Algo, Ds, User],
       synchronize: true,
     }),
+    AdminModule,
   ],
   controllers: [AppController],
   providers: [AppService],

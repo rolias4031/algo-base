@@ -7,6 +7,7 @@ import {
   HttpException,
   HttpStatus,
   Body,
+  UseGuards,
 } from '@nestjs/common';
 import { DsService } from './ds.service';
 import { Ds } from './ds.entity';

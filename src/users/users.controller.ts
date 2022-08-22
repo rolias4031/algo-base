@@ -1,11 +1,18 @@
-import { Controller, Post, Body, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Delete, Get, UseGuards } from '@nestjs/common';
 import { CreateUserDto, DeleteUserDto } from 'src/dto/User.dto';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
+import { ApiGuard } from 'src/auth/api.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
+
+  @UseGuards(ApiGuard)
+  @Get('all')
+  async getAll(): Promise<User[]> {
+    return this.usersService.allUsers();
+  }
 
   //need create and delete routes.
   @Post('create')
