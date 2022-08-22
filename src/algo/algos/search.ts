@@ -1,3 +1,5 @@
+// All search algorithms, exported in an object to be used in algoService.searchMap
+
 function binarySearch(arr: number[], target: number): number {
   // takes a sorted array and returns the index of the target number.
   let l = 0;

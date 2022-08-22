@@ -5,12 +5,14 @@ import {
   Put,
   Param,
   Body,
+  Headers,
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
 import { SearchBodyDto } from '../dto/SearchBody.dto';
 import { SortBodyDto } from '../dto/SortBody.dto';
 import { GetAllAlgosDto, GetOneAlgoDto } from '../dto/GetParam.dto';
+import { AdminHeaderDto } from 'src/dto/AdminHeader.dto';
 import { AlgoService } from './algo.service';
 import { Algo } from './algo.entity';
 import { CreateAlgoDto, EditAlgoDto } from 'src/dto/Algo.dto';
@@ -59,7 +61,11 @@ export class AlgoController {
   }
 
   @Post('create')
-  async createAlgo(@Body() createAlgoDto: CreateAlgoDto): Promise<Algo> {
+  async createAlgo(
+    @Headers('api_key') headers: AdminHeaderDto,
+    @Body() createAlgoDto: CreateAlgoDto,
+  ): Promise<Algo> {
+    console.log(headers);
     return await this.algoService.createAlgo(createAlgoDto);
   }
 

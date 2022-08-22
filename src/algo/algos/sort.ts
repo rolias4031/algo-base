@@ -1,3 +1,5 @@
+// Contains all sort algorithms, to be exported to algoService.searchMap
+
 function bubbleSort(arr: number[]): number[] {
   for (let i = arr.length; i > 0; i--) {
     let swap = false;

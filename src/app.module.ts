@@ -7,10 +7,15 @@ import { Algo } from './algo/algo.entity';
 import { Ds } from './ds/ds.entity';
 import { DsModule } from './ds/ds.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
+import { User } from './users/user.entity';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
+    AuthModule,
+    UsersModule,
     AlgoModule,
     DsModule,
     TypeOrmModule.forRoot({
@@ -20,7 +25,7 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PW,
       database: process.env.DATABASE_NAME,
-      entities: [Algo, Ds],
+      entities: [Algo, Ds, User],
       synchronize: true,
     }),
   ],

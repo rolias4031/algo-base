@@ -34,7 +34,6 @@ export class DsService {
     return await this.dsRepository.save(newDs);
   }
 
-  // edit Dto to mandate name
   async editDs(editDsDto: EditDsDto): Promise<Ds> {
     const exists = await this.dsRepository.findOneBy({
       name: editDsDto.name,

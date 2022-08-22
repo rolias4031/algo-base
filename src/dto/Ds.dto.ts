@@ -1,6 +1,8 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { PartialType, OmitType } from '@nestjs/mapped-types';
 
+// Dto for POST ds/create
+
 export class CreateDsDto {
   @IsNotEmpty()
   @IsString()
@@ -38,6 +40,10 @@ export class CreateDsDto {
   @IsString()
   search_tc: string;
 }
+
+// Dto for PUT ds/edit.
+// Uses PartialType() to recreate CreateDsDto, but with all fields optional.
+// Uses OmitType() to remove the name field and then create it again, because we cannot have it tagged as optional. Might be able to do this another way FYI.
 
 export class EditDsDto extends PartialType(
   OmitType(CreateDsDto, ['name'] as const),
