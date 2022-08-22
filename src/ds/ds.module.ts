@@ -8,5 +8,6 @@ import { DsService } from './ds.service';
   imports: [TypeOrmModule.forFeature([Ds])],
   controllers: [DsController],
   providers: [DsService],
+  exports: [DsService],
 })
 export class DsModule {}

@@ -13,7 +13,9 @@ import { DsService } from './ds.service';
 import { Ds } from './ds.entity';
 import { DsParamsDto } from 'src/dto/DsParams.dto';
 import { CreateDsDto, EditDsDto } from 'src/dto/Ds.dto';
+import { ApiGuard } from 'src/auth/api.guard';
 
+@UseGuards(ApiGuard)
 @Controller('ds')
 export class DsController {
   constructor(private dsService: DsService) {}
@@ -34,16 +36,5 @@ export class DsController {
       throw new HttpException('Not Found', HttpStatus.NOT_FOUND);
     }
     return ds;
-  }
-
-  @Post('create')
-  async createDs(@Body() createDsDto: CreateDsDto): Promise<Ds> {
-    const newUser = await this.dsService.createDs(createDsDto);
-    return newUser;
-  }
-
-  @Put('edit')
-  async editDs(@Body() editDsDto: EditDsDto): Promise<Ds> {
-    return await this.dsService.editDs(editDsDto);
   }
 }

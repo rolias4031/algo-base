@@ -2,23 +2,22 @@ import {
   Controller,
   Post,
   Get,
-  Put,
   Param,
   Body,
-  Headers,
   HttpException,
   HttpStatus,
+  UseGuards,
 } from '@nestjs/common';
 import { SearchBodyDto } from '../dto/SearchBody.dto';
 import { SortBodyDto } from '../dto/SortBody.dto';
 import { GetAllAlgosDto, GetOneAlgoDto } from '../dto/GetParam.dto';
-import { AdminHeaderDto } from 'src/dto/AdminHeader.dto';
 import { AlgoService } from './algo.service';
 import { Algo } from './algo.entity';
-import { CreateAlgoDto, EditAlgoDto } from 'src/dto/Algo.dto';
+import { ApiGuard } from 'src/auth/api.guard';
 
 /* Controller for algo. Imports services from algo.services. Containts routes for getting and applying all algorithms.
  */
+@UseGuards(ApiGuard)
 @Controller('algo')
 export class AlgoController {
   constructor(private algoService: AlgoService) {}
@@ -58,19 +57,5 @@ export class AlgoController {
   @Post('apply/sort')
   applySort(@Body() body: SortBodyDto): number[] {
     return this.algoService.applySort(body.algoName, body.data);
-  }
-
-  @Post('create')
-  async createAlgo(
-    @Headers('api_key') headers: AdminHeaderDto,
-    @Body() createAlgoDto: CreateAlgoDto,
-  ): Promise<Algo> {
-    console.log(headers);
-    return await this.algoService.createAlgo(createAlgoDto);
-  }
-
-  @Put('edit')
-  async editAlgo(@Body() editAlgoDto: EditAlgoDto): Promise<Algo> {
-    return await this.algoService.editAlgo(editAlgoDto);
   }
 }

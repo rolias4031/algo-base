@@ -8,5 +8,6 @@ import { Algo } from './algo.entity';
   imports: [TypeOrmModule.forFeature([Algo])],
   controllers: [AlgoController],
   providers: [AlgoService],
+  exports: [AlgoService],
 })
 export class AlgoModule {}
