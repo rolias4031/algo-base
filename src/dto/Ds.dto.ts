@@ -1,6 +1,14 @@
 import { IsNotEmpty, IsString } from 'class-validator';
 import { PartialType, OmitType } from '@nestjs/mapped-types';
 
+// Dto for GET ds/:dsName
+
+export class DsParamsDto {
+  @IsNotEmpty()
+  @IsString()
+  dsName: string;
+}
+
 // Dto for POST ds/create
 
 export class CreateDsDto {

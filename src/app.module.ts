@@ -11,6 +11,9 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { User } from './users/user.entity';
 import { AdminModule } from './admin/admin.module';
+import { Admin } from './admin/admin.entity';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -19,6 +22,7 @@ import { AdminModule } from './admin/admin.module';
     UsersModule,
     AlgoModule,
     DsModule,
+    AdminModule,
     TypeOrmModule.forRoot({
       type: process.env.DATABASE_TYPE as 'mysql',
       host: process.env.HOST,
@@ -26,12 +30,15 @@ import { AdminModule } from './admin/admin.module';
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PW,
       database: process.env.DATABASE_NAME,
-      entities: [Algo, Ds, User],
+      entities: [Algo, Ds, User, Admin],
       synchronize: true,
     }),
-    AdminModule,
+    ThrottlerModule.forRoot({
+      ttl: 60,
+      limit: 10,
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, { provide: APP_GUARD, useClass: ThrottlerGuard }],
 })
 export class AppModule {}

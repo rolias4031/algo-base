@@ -1,17 +1,14 @@
-import { Module } from '@nestjs/common';
+import { Global, Module } from '@nestjs/common';
 import { Admin } from './admin.entity';
 import { AdminService } from './admin.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminController } from './admin.controller';
-import { Algo } from 'src/algo/algo.entity';
-import { Ds } from 'src/ds/ds.entity';
-import { AlgoService } from 'src/algo/algo.service';
-import { DsService } from 'src/ds/ds.service';
 
+@Global()
 @Module({
-  imports: [TypeOrmModule.forFeature([Admin, Algo, Ds])],
-  providers: [AdminService, AlgoService, DsService],
-  exports: [AdminService],
+  imports: [TypeOrmModule.forFeature([Admin])],
+  providers: [AdminService],
   controllers: [AdminController],
+  exports: [AdminService],
 })
 export class AdminModule {}
