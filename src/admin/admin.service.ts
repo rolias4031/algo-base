@@ -18,7 +18,6 @@ export class AdminService {
   }
 
   async authorizeAdmin(email: string, password: string): Promise<boolean> {
-    console.log(email, password);
     const admin = await this.adminRepository.findOneBy({ email: email });
     if (!admin) {
       throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);

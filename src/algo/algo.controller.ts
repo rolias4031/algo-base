@@ -30,7 +30,7 @@ export class AlgoController {
 
   // returns all algorithms with a specified type.
   @UseGuards(ApiGuard)
-  @Get(':algoType')
+  @Get('type/:algoType')
   async getAllAlgos(@Param() params: GetAllAlgosDto): Promise<Algo[]> {
     return await this.algoService.findAll(params.algoType);
   }

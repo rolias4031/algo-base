@@ -10,9 +10,7 @@ export class Ds {
   })
   name: string;
 
-  @Column({
-    unique: true,
-  })
+  @Column({})
   display_name: string;
 
   @Column()

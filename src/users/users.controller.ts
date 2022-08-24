@@ -2,13 +2,13 @@ import { Controller, Post, Body, Delete, Get, UseGuards } from '@nestjs/common';
 import { CreateUserDto, DeleteUserDto } from 'src/dto/User.dto';
 import { UsersService } from './users.service';
 import { User } from './user.entity';
-import { ApiGuard } from 'src/auth/api.guard';
+import { AdminGuard } from 'src/admin/admin.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
 
-  @UseGuards(ApiGuard)
+  @UseGuards(AdminGuard)
   @Get('all')
   async getAll(): Promise<User[]> {
     return this.usersService.allUsers();
