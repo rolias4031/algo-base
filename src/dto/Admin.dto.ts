@@ -1,5 +1,7 @@
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 
+// dto used for creating an admin in POST admin/create
+
 export class CreateAdminDto {
   @IsNotEmpty()
   @IsString()

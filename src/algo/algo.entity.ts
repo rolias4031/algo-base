@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+// entity for 'algo' table
 @Entity()
 export class Algo {
   @PrimaryGeneratedColumn()

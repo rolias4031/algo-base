@@ -16,20 +16,23 @@ import { CreateDsDto, EditDsDto } from 'src/dto/Ds.dto';
 import { ApiGuard } from 'src/auth/api.guard';
 import { AdminGuard } from 'src/admin/admin.guard';
 
+// controller for all data structure related requests
 @Controller('ds')
 export class DsController {
   constructor(private dsService: DsService) {}
 
+  // returns all data structures. requires email and api_key
   @UseGuards(ApiGuard)
   @Get('all')
   async getAllDs(): Promise<Ds[]> {
     const dataStructures = await this.dsService.findAll();
     if (!dataStructures) {
-      throw new HttpException("There's Nothing Here", HttpStatus.BAD_REQUEST);
+      throw new HttpException('Not Found', HttpStatus.BAD_REQUEST);
     }
     return await this.dsService.findAll();
   }
 
+  // returns data structure by param name. requires email and api_key
   @UseGuards(ApiGuard)
   @Get(':dsName')
   async getOneDs(@Param() params: DsParamsDto): Promise<Ds> {
@@ -40,6 +43,7 @@ export class DsController {
     return ds;
   }
 
+  // create and edit data structures. admin routes.
   @UseGuards(AdminGuard)
   @Post('create')
   async createDs(@Body() createDsDto: CreateDsDto): Promise<Ds> {

@@ -22,8 +22,7 @@ import { Algo } from './algo.entity';
 import { ApiGuard } from 'src/auth/api.guard';
 import { AdminGuard } from 'src/admin/admin.guard';
 
-/* Controller for algo. Imports services from algo.services. Containts routes for getting and applying all algorithms.
- */
+// Controller for algo. Imports services from algo.services. Containts routes for getting and applying all algorithms.
 @Controller('algo')
 export class AlgoController {
   constructor(private algoService: AlgoService) {}
@@ -50,7 +49,8 @@ export class AlgoController {
     return info;
   }
 
-  // applies search algo and returns the data. Uses the body.algoName to get correct function from a map in algoService.searchMap
+  // applies search algo and returns the data.
+  // Uses the body.algoName to get correct function from a map in algoService.searchMap
   @UseGuards(ApiGuard)
   @Post('apply/search')
   applySearch(@Body() body: SearchAlgoDto): string {
@@ -62,13 +62,15 @@ export class AlgoController {
     return `Target is at index ${targetIndex}`;
   }
 
-  // applies sort algo and returns the data. Uses the body.algoName to get correct function from a map in algoService.sortMap.
+  // applies sort algo and returns the data.
+  // Uses the body.algoName to get correct function from a map in algoService.sortMap.
   @UseGuards(ApiGuard)
   @Post('apply/sort')
   applySort(@Body() body: SortAlgoDto): number[] {
     return this.algoService.applySort(body.algoName, body.data);
   }
 
+  // create and edit algo entries. admin routes.
   @UseGuards(AdminGuard)
   @Post('create')
   async createAlgo(@Body() createAlgoDto: CreateAlgoDto): Promise<Algo> {

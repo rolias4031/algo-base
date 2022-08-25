@@ -3,7 +3,7 @@ import { AdminService } from './admin.service';
 import { AdminGuard } from './admin.guard';
 import { CreateAdminDto } from 'src/dto/Admin.dto';
 
-//protect with the AdminGuard
+// controller for creating new admins. protected by AdminGuard
 @UseGuards(AdminGuard)
 @Controller('admin')
 export class AdminController {

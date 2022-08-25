@@ -44,7 +44,7 @@ export class AdminService {
       );
     }
     const hashedPw = await bcrypt.hash(createAdminDto.password, 10);
-    const { confirm, ...newAdmin } = createAdminDto;
+    const { confirm, ...newAdmin } = createAdminDto; // extract confirm from upload record
     newAdmin.password = hashedPw;
     const record = this.adminRepository.create(newAdmin);
     await this.adminRepository.save(record);

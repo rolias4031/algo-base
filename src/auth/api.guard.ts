@@ -2,14 +2,13 @@ import {
   Injectable,
   CanActivate,
   ExecutionContext,
-  Inject,
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 
 // import UsersService and find api_key in DB
-
+// returns a '403, forbidden' error if this fails
 @Injectable()
 export class ApiGuard implements CanActivate {
   constructor(private authService: AuthService) {}

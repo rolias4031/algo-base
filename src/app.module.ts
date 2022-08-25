@@ -15,6 +15,7 @@ import { Admin } from './admin/admin.entity';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 
+// this is the main module through which all other modules are imported
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -26,13 +27,14 @@ import { APP_GUARD } from '@nestjs/core';
     TypeOrmModule.forRoot({
       type: process.env.DATABASE_TYPE as 'mysql',
       host: process.env.HOST,
-      port: parseInt(process.env.PORT),
+      port: parseInt(process.env.DATABASE_PORT),
       username: process.env.DATABASE_USERNAME,
       password: process.env.DATABASE_PW,
       database: process.env.DATABASE_NAME,
       entities: [Algo, Ds, User, Admin],
-      synchronize: true,
+      synchronize: false, // this option should be false for production. Involves reflecting entities to database tables.
     }),
+    // import Throttler. Settings allow for 10 requests per minute. Injected as a provider in 'providers' below.
     ThrottlerModule.forRoot({
       ttl: 60,
       limit: 10,

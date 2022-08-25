@@ -13,13 +13,14 @@ export class AlgoService {
     private algoRepository: Repository<Algo>,
   ) {}
 
-  // Map that stores search functions to its string name. Called in applySearch route functions.
+  // Map that stores search functions located in algos/search.ts by its name property. Called in applySearch route functions.
+  // to add a new function to any apply/ route, add the function in the right algos/function file, and then create a new map entry.
   searchMap = new Map<string, (arr: number[], target: number) => number>([
     ['binary-search', searchAlgos.binarySearch],
     ['linear-search', searchAlgos.linearSearch],
   ]);
 
-  // Map that stores sort function to its string name. Called in applySort route functions.
+  // Map that stores sort functions located in algos/sort by its name. Called in applySort route functions.
   sortMap = new Map<string, (arr: number[]) => number[]>([
     ['bubble-sort', sortAlgos.bubbleSort],
     ['insertion-sort', sortAlgos.insertionSort],

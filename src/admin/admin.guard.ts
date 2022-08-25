@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import { AdminService } from './admin.service';
 
+// essentially the same as AuthGuard, but checks admin table for correct email and password
 @Injectable()
 export class AdminGuard implements CanActivate {
   constructor(private adminService: AdminService) {}

@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { HttpException, HttpStatus } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
+// used only by the api.guard to authorize requests
 @Injectable()
 export class AuthService {
   constructor(
