@@ -16,7 +16,16 @@ let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
+    status() {
+        return 'ALL SYSTEMS GO';
+    }
 };
+__decorate([
+    (0, common_1.Get)('status'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", String)
+], AppController.prototype, "status", null);
 AppController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [app_service_1.AppService])

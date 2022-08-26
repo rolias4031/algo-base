@@ -22,7 +22,7 @@ export class AdminService {
     if (!admin) {
       throw new HttpException('Admin not found', HttpStatus.NOT_FOUND);
     }
-    const isMatch = bcrypt.compare(password, admin.password);
+    const isMatch = await bcrypt.compare(password, admin.password);
     if (!isMatch) return false;
     return true;
   }

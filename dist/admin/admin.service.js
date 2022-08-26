@@ -42,7 +42,7 @@ let AdminService = class AdminService {
         if (!admin) {
             throw new common_1.HttpException('Admin not found', common_1.HttpStatus.NOT_FOUND);
         }
-        const isMatch = bcrypt.compare(password, admin.password);
+        const isMatch = await bcrypt.compare(password, admin.password);
         if (!isMatch)
             return false;
         return true;
