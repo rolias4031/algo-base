@@ -4,6 +4,68 @@ AlgoBase is an API for learning about and applying fundamental data structures a
 
 ## Using the API
 
+An API key is required to use AlgoBase. Get an API key by creating an account at `POST /users/create`. **The response will contain your API key. You will only see it once, so make sure you copy it in a safe place!**
+An example using the fetch API:
+```JavaScript
+// fetch method should be POST and body should in the form { email: email, password: password }
+const url = "www.algobaseapi.com/users/create"
+const fetchOptions = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    email: youremail@example.com,
+    password: yourpassword,
+  })
+}
+fetch(url, fetchOptions)
+```
+If you lose your API key, you can always delete your account at `POST /users/delete` using your email and password, and then recreate it.
+```JavaScript
+const url = 'www.algobaseapi.com/users/delete'
+const fetchOptions = {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify({
+    email: email,
+    password: password,
+  })
+}
+fetch(url, fetchOptions)
+```
+All endpoints require your email and api_key in the following header structure.
+```JavaScript
+headers: {
+  ...,
+  email: email,
+  api_key: api_key
+}
+
+// if you forget the header, you'll receive a notice.
+// if you input the incorrect email or password, you'll get a "403, forbidden resource" error.
+```
+## List of Endpoints
+
+#### User routes
+- `POST users/create`
+- `DELETE users/delete`
+
+#### Data Structure routes
+- `GET ds/all` - returns an object containing a list of all data structures
+- `GET ds/[name]` - returns a single data structure of your choice using a dynamic route parameter
+
+Example for `GET ds/[name]`. The dynamic name parameter must match the `name` property of the model. Consider using the `GET ds/all` route for a list of possible data structure names.
+```JavaScript
+const url = "www.algobaseapi.com/ds/binary-search-tree"
+fetch(url, { method: 'GET' })
+```
+
+#### Algorithm routes
+
+
 ...
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
